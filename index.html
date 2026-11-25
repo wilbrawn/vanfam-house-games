@@ -124,6 +124,16 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 .t{margin:0;font:19px/1.35 var(--ty);overflow-wrap:anywhere}
 .by{margin:4px 0 0;font-size:14px;color:var(--mute)}
 .by strong{color:var(--ink);font-weight:600}
+.file.del{grid-template-columns:auto minmax(0,1fr) auto}
+.shred{background:none;border:1px solid #b9b1a0;color:var(--mute);border-radius:3px;min-height:40px;padding:0 12px;font:600 14px/1 AN,sans-serif;white-space:nowrap}
+.shred:hover{border-color:var(--stamp);color:var(--stamp)}
+.shred.arm{background:var(--stamp);border-color:var(--stamp);color:var(--paper)}
+.shred:disabled{opacity:.5;cursor:wait}
+.hostform{max-width:460px;width:100%;text-align:left}
+.hostform .stamp{font-size:clamp(30px,6vw,44px);margin-bottom:30px}
+.hostform label{display:block;font:15px/1.3 var(--ty);margin-bottom:10px}
+#hostpass{flex:1 1 200px;min-height:54px;background:#ffffff0d;border:1.5px solid #4a4843;border-radius:3px;color:var(--hi);font:20px/1.2 var(--ty);padding:0 16px}
+#hostpass:focus{border-color:var(--hi);outline:none}
 .redacted .t span{background:var(--ink);color:transparent;border-radius:1px}
 .redacted .file:hover .t span,.redacted .file:focus-within .t span{background:transparent;color:var(--ink)}
 .kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
@@ -171,7 +181,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
 @keyframes fall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--rot))}}
 .toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;transform:translate(-50%,calc(100% + 40px));visibility:hidden;background:var(--paper);color:var(--ink);padding:12px 18px;border-radius:3px;font:16px/1.35 var(--ty);box-shadow:0 14px 30px -10px #000;transition:transform .25s,visibility .25s;max-width:min(92vw,520px);text-align:center}
 .toast.on{transform:translate(-50%,0);visibility:visible}
-@media(max-width:600px){.sheethead{padding-right:128px}.cardhead{padding-right:0;margin-top:40px}.steps li{grid-template-columns:72px minmax(0,1fr);gap:12px}.steps .mk{font-size:21px}.meta span+span{display:none}.numrow .stamp{right:0;bottom:8%}}
+@media(max-width:600px){.file,.file.del{grid-template-columns:minmax(0,1fr) auto;gap:6px 12px}.tab{grid-column:1/-1;border:0;padding:0;font-size:18px}.sheethead{padding-right:128px}.cardhead{padding-right:0;margin-top:40px}.steps li{grid-template-columns:72px minmax(0,1fr);gap:12px}.steps .mk{font-size:21px}.meta span+span{display:none}.numrow .stamp{right:0;bottom:8%}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.woofs span,.granted p{opacity:1}}
 </style>
 </head>
@@ -225,7 +235,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
     <header>
       <button class="mark" id="mark" type="button">VANFAM <span class="dash">—</span> House Games</button>
       <p class="sub"><span class="badge">001</span><b>The Masterclass Speed Run</b></p>
-      <p class="who">Filing as <strong id="whoname"></strong> · <button class="link" id="switch" type="button">not you?</button> · <button class="link" id="reread" type="button">re-read the brief</button></p>
+      <p class="who">Filing as <strong id="whoname"></strong> · <button class="link" id="switch" type="button">not you?</button> · <button class="link" id="reread" type="button">re-read the brief</button><span id="execflag" hidden> · <button class="link" id="lock" type="button">executive mode on (lock)</button></span></p>
     </header>
 
     <section class="card" aria-labelledby="h-intake">
@@ -277,6 +287,7 @@ button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(-
   <p class="fine">This page will not self-destruct. Your ego might. · ↑↑↓↓←→←→BA</p>
 </footer>
 
+<div class="granted" id="hostbox" hidden><form class="hostform" id="hostform" autocomplete="off" novalidate><span class="stamp">Executive access</span><label for="hostpass">Executive passcode</label><div class="inrow"><input id="hostpass" type="password" autocomplete="off" enterkeyhint="go"><button class="btn red" type="submit">Unlock</button></div><p class="hint" id="hosthint"></p><button class="link" type="button" id="hostcancel">Cancel</button></form></div>
 <div class="granted" id="granted" hidden><div><span class="stamp">Access granted</span><p id="grantedmsg"></p></div></div>
 <div class="ovl" id="ovl" hidden role="dialog" aria-modal="true" aria-labelledby="odds">
   <div class="ovlin">
@@ -295,6 +306,7 @@ const API='https://rrsamqdzhtocvxwqrrrj.supabase.co/rest/v1/house_games_topics';
 const KEY='sb_publishable_XhYABscA5t0PQ-1Nd2V5BA_6jUGWpLg';
 const GAME='hg-001';
 const HDR={apikey:KEY,'Content-Type':'application/json'};
+const RPC='https://rrsamqdzhtocvxwqrrrj.supabase.co/rest/v1/rpc/';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -346,14 +358,17 @@ $('#inspo').addEventListener('click',()=>{let i=0;const pick=()=>{let k;do{k=Mat
 /* ---- vault (Supabase) ---- */
 let rows=[],seen=new Set(),loaded=false,poll=null,failing=0,redacted=false;
 let mine=new Set((store.get('vhg_mine')||'').split(',').filter(Boolean));
+let tokens={};try{tokens=JSON.parse(store.get('vhg_tokens')||'{}')||{}}catch(e){}
+let hostPass=store.get('vhg_exec')||'';
+const uuid=()=>crypto.randomUUID?crypto.randomUUID():'10000000-1000-4000-8000-100000000000'.replace(/[018]/g,c=>(c^crypto.getRandomValues(new Uint8Array(1))[0]&15>>c/4).toString(16));
 function fmtTime(ts){try{return new Date(ts).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}catch(e){return ''}}
 function render(){
   const st=$('#state'),list=$('#list');
   $('#tally').textContent=rows.length+(rows.length===1?' file':' files');
   const nx=String(rows.length+1).padStart(3,'0');$('#fileno').textContent='Next file no. '+nx+(nx==='007'?' · licence to present':'');
   st.hidden=rows.length>0;if(!rows.length&&loaded)st.textContent='No files yet. Be the first agent in.';
-  list.innerHTML=rows.map((r,i)=>{const isNew=loaded&&!seen.has(r.id);const own=mine.has(r.id);
-    return `<li class="file${own?' mine':''}${isNew?' new':''}" tabindex="-1"><span class="tab">#${String(i+1).padStart(3,'0')}</span><div><p class="t"><span>${esc(r.topic)}</span></p><p class="by"><strong>${esc(r.name)}</strong> · ${esc(codename(r.name))} · ${esc(fmtTime(r.created_at))}</p></div></li>`}).join('');
+  list.innerHTML=rows.map((r,i)=>{const isNew=loaded&&!seen.has(r.id);const own=mine.has(r.id);const can=!!(tokens[r.id]||hostPass);
+    return `<li class="file${own?' mine':''}${isNew?' new':''}${can?' del':''}" tabindex="-1"><span class="tab">#${String(i+1).padStart(3,'0')}</span><div><p class="t"><span>${esc(r.topic)}</span></p><p class="by"><strong>${esc(r.name)}</strong> · ${esc(codename(r.name))} · ${esc(fmtTime(r.created_at))}</p></div>${can?`<button class="shred" type="button" data-id="${esc(r.id)}">Shred</button>`:''}</li>`}).join('');
   for(const r of rows)seen.add(r.id);
 }
 async function load(){
@@ -371,24 +386,42 @@ let busy=false;
 $('#f').addEventListener('submit',async e=>{e.preventDefault();const text=topic.value.replace(/\s+/g,' ').trim();
   if(!text){topic.focus();toast('A blank file? Bold. Write something.');return}
   if(busy)return;busy=true;go.disabled=true;go.textContent='Filing…';
-  try{const res=await fetch(API,{method:'POST',headers:{...HDR,Prefer:'return=representation'},body:JSON.stringify({game:GAME,name:me.slice(0,40),topic:text.slice(0,160)})});
+  const tok=uuid();
+  try{const res=await fetch(API+'?select=id,name,topic,created_at',{method:'POST',headers:{...HDR,Prefer:'return=representation'},body:JSON.stringify({game:GAME,name:me.slice(0,40),topic:text.slice(0,160),delete_token:tok})});
     if(!res.ok)throw new Error(res.status);const [row]=await res.json();
-    if(row&&row.id){mine.add(row.id);store.set('vhg_mine',[...mine].join(','));if(!rows.some(r=>r.id===row.id)){rows.push(row);render()}}
+    if(row&&row.id){mine.add(row.id);store.set('vhg_mine',[...mine].join(','));tokens[row.id]=tok;store.set('vhg_tokens',JSON.stringify(tokens));if(!rows.some(r=>r.id===row.id)){rows.push(row);render()}}
     topic.value='';onType();celebrate();load();
   }catch(err){toast("Didn't go through. Check your connection and try again.")}
   finally{busy=false;go.disabled=false;go.textContent='Submit to the vault'}});
+
+/* ---- shred (delete) ---- */
+$('#list').addEventListener('click',async e=>{const b=e.target.closest('.shred');if(!b||b.disabled)return;
+  if(!b.classList.contains('arm')){b.classList.add('arm');b.textContent='Sure?';setTimeout(()=>{if(b.isConnected&&!b.disabled){b.classList.remove('arm');b.textContent='Shred'}},3000);return}
+  b.disabled=true;b.textContent='…';const id=b.dataset.id;const body={p_id:id};if(tokens[id])body.p_token=tokens[id];if(hostPass)body.p_pass=hostPass;
+  try{const res=await fetch(RPC+'house_games_delete',{method:'POST',headers:HDR,body:JSON.stringify(body)});if(!res.ok)throw new Error(res.status);
+    if(await res.json()===true){delete tokens[id];store.set('vhg_tokens',JSON.stringify(tokens));rows=rows.filter(r=>r.id!==id);render();toast('Shredded. Nobody saw anything.')}
+    else{toast("Couldn't shred that one. It may already be gone.");load()}
+  }catch(err){toast("Couldn't shred that one. Try again.");b.disabled=false;b.classList.remove('arm');b.textContent='Shred'}});
 
 /* ---- celebration ---- */
 let ot;
 function celebrate(){const o=$('#ovl');o.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>o.classList.add('on')));pawRain(28);clearTimeout(ot);ot=setTimeout(closeOvl,7000);$('#ovlx').focus()}
 function closeOvl(){const o=$('#ovl');clearTimeout(ot);o.classList.remove('on');setTimeout(()=>{o.hidden=true},260)}
 $('#ovlx').addEventListener('click',closeOvl);$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeOvl()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#ovl').hidden)closeOvl()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!$('#ovl').hidden)closeOvl();$('#hostbox').hidden=true}});
 function pawRain(n){if(calm)return;const box=$('#paws');for(let i=0;i<n;i++){const s=document.createElementNS('http://www.w3.org/2000/svg','svg');const z=24+Math.random()*30;s.setAttribute('viewBox','0 0 64 64');s.setAttribute('width',z);s.setAttribute('height',z);s.innerHTML='<use href="#paw"/>';s.style.left=(Math.random()*100)+'vw';s.style.fill=Math.random()<.6?'#ff3b22':'#f2eee4';s.style.setProperty('--rot',(Math.random()*540-270)+'deg');s.style.animationDuration=(2.2+Math.random()*2.2)+'s';s.style.animationDelay=(Math.random()*1.2)+'s';box.appendChild(s);setTimeout(()=>s.remove(),5200)}}
 
 /* ---- hidden stuff ---- */
 let clicks=0,ct;
-$('#mark').addEventListener('click',()=>{clicks++;clearTimeout(ct);ct=setTimeout(()=>{clicks=0},1200);if(clicks>=5){clicks=0;document.querySelectorAll('.banner').forEach(b=>b.textContent='Top secret — Executive clearance granted');toast('Executive clearance granted. Welcome back, boss.');pawRain(40)}});
+$('#mark').addEventListener('click',()=>{clicks++;clearTimeout(ct);ct=setTimeout(()=>{clicks=0},1200);if(clicks>=5){clicks=0;if(hostPass){toast('Already cleared, boss.');return}$('#hostpass').value='';$('#hosthint').textContent='';$('#hosthint').classList.remove('err');$('#hostbox').hidden=false;setTimeout(()=>$('#hostpass').focus(),60)}});
+$('#hostcancel').addEventListener('click',()=>{$('#hostbox').hidden=true});
+function setExec(){$('#execflag').hidden=!hostPass;document.querySelectorAll('.banner').forEach(b=>b.textContent=hostPass?'Top secret — Executive clearance granted':'Confidential — For VANFAM executive eyes only');render()}
+$('#hostform').addEventListener('submit',async e=>{e.preventDefault();const p=$('#hostpass').value.trim(),hint=$('#hosthint');if(!p)return;hint.classList.remove('err');hint.textContent='Checking clearance…';
+  try{const res=await fetch(RPC+'house_games_check_host',{method:'POST',headers:HDR,body:JSON.stringify({p_pass:p})});const ok=res.ok&&(await res.json())===true;
+    if(ok){hostPass=p;store.set('vhg_exec',p);$('#hostbox').hidden=true;setExec();toast('Executive clearance granted. Welcome back, boss.');pawRain(40)}
+    else{hint.textContent='Access denied. Nice try, agent.';hint.classList.add('err')}
+  }catch(err){hint.textContent="Couldn't reach the vault. Try again."}});
+$('#lock').addEventListener('click',()=>{hostPass='';store.set('vhg_exec','');setExec();toast('Executive mode locked.')});
 function toggleRedact(){redacted=!redacted;document.body.classList.toggle('redacted',redacted);stampThunk();toast(redacted?'Redaction protocol engaged. Tap or hover a file to peek.':'Declassified.')}
 $('#stamp').addEventListener('click',toggleRedact);
 const K=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let kp=0;
@@ -426,6 +459,7 @@ $('#tgo').addEventListener('click',()=>{if(tick){pause();return}if(left<=0)left=
 
 /* ---- start: always open on the confidential page ---- */
 history.replaceState(null,'',location.pathname);
+if(hostPass)setExec();
 show('gate',false);
 }
 </script>
