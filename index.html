@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VANFAM — House Games 001</title>
+<meta name="description" content="Confidential. For VANFAM executive eyes only.">
+<meta name="theme-color" content="#0e0e0d">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="VANFAM — House Games 001">
+<meta property="og:description" content="The Masterclass Speed Run. Confidential — for VANFAM executive eyes only.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wilbrawn.github.io/vanfam-house-games/">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%230e0e0d'/%3E%3Crect x='8' y='8' width='48' height='48' rx='4' fill='none' stroke='%23ff3b22' stroke-width='5'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Impact,sans-serif' font-size='28' fill='%23f2eee4'%3EVF%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/big-shoulders-stencil-display@5.3.0/files/big-shoulders-stencil-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:BSS;src:url(https://cdn.jsdelivr.net/npm/@fontsource/big-shoulders-stencil-display@5.3.0/files/big-shoulders-stencil-display-latin-900-normal.woff2) format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:BSS;src:url(https://cdn.jsdelivr.net/npm/@fontsource/big-shoulders-stencil-display@5.3.0/files/big-shoulders-stencil-display-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
+@font-face{font-family:Typ;src:url(https://cdn.jsdelivr.net/npm/@fontsource/special-elite@5.3.0/files/special-elite-latin-400-normal.woff2) format("woff2");font-display:swap}
+@font-face{font-family:AN;src:url(https://cdn.jsdelivr.net/npm/@fontsource/archivo-narrow@5.3.0/files/archivo-narrow-latin-400-normal.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:AN;src:url(https://cdn.jsdelivr.net/npm/@fontsource/archivo-narrow@5.3.0/files/archivo-narrow-latin-600-normal.woff2) format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:AN;src:url(https://cdn.jsdelivr.net/npm/@fontsource/archivo-narrow@5.3.0/files/archivo-narrow-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{color-scheme:dark;--desk:#0e0e0d;--desk2:#191917;--paper:#f2eee4;--paper2:#e7e1d2;--ink:#151513;--mute:#6b665b;--red:#ff3b22;--stamp:#d4241a;--line:#2c2b28;--hi:#f2eee4;--dim:#a39d90;
+  --st:BSS,"Arial Narrow",Impact,sans-serif;--ty:Typ,"Courier New",monospace}
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:radial-gradient(ellipse 90% 50% at 50% 0,#2a2925 0,transparent 70%) no-repeat,var(--desk);color:var(--hi);font:16px/1.55 AN,"Arial Narrow",system-ui,sans-serif;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;overflow-x:clip}
+button{font:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+[hidden]{display:none!important}
+.banner{background:var(--red);color:#140c0a;text-align:center;font:700 12.5px/1.25 AN,sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:9px 16px;padding-top:max(9px,env(safe-area-inset-top))}
+.wrap{width:100%;max-width:880px;margin:0 auto;padding:0 max(5vw,18px)}
+.screen{flex:1;padding:clamp(26px,5vw,56px) 0 clamp(36px,6vw,72px)}
+.screen.enter{animation:enter .45s ease-out both}
+@keyframes enter{from{opacity:0;transform:translateY(14px)}}
+.btn{border:0;border-radius:3px;min-height:54px;padding:0 24px;font:900 24px/1 var(--st);text-transform:uppercase;transition:background .15s,transform .1s}
+.btn:active{transform:translateY(1px)}
+.btn.red{background:var(--red);color:#140c0a}.btn.red:hover{background:var(--hi)}
+.btn.ink{background:var(--ink);color:var(--paper)}.btn.ink:hover{background:var(--stamp)}
+.btn.light{background:var(--hi);color:var(--desk)}.btn.light:hover{background:var(--red)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.ghost{background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:3px;min-height:44px;padding:0 14px;font-weight:600}
+.link{all:unset;cursor:pointer;color:var(--dim);text-decoration:underline;text-underline-offset:3px}
+.link:hover{color:var(--hi)}
+.stamp{display:inline-block;border:4px double var(--red);color:var(--red);font:900 clamp(30px,6vw,58px)/1 var(--st);text-transform:uppercase;padding:8px 18px 3px;transform:rotate(-9deg)}
+
+/* gate */
+.meta{display:flex;justify-content:space-between;gap:12px;font:13px/1.3 var(--ty);color:var(--dim);margin:0 0 clamp(18px,3vw,30px)}
+.hg{margin:0;font:900 clamp(58px,13vw,140px)/.84 var(--st);text-transform:uppercase}
+.numrow{position:relative;margin-top:clamp(6px,1.5vw,14px)}
+.num{display:block;font:900 clamp(150px,36vw,330px)/.8 var(--st);color:transparent;-webkit-text-stroke:2px var(--hi);letter-spacing:.04em}
+.numrow .stamp{position:absolute;right:clamp(0px,6vw,90px);bottom:18%;background:#0e0e0dcc}
+.op{margin:clamp(18px,3vw,28px) 0 0;font:15px/1.3 var(--ty);color:var(--dim)}
+.op b{display:block;margin-top:8px;font:900 clamp(34px,6vw,58px)/.95 var(--st);text-transform:uppercase;color:var(--hi)}
+.op b q::before,.op b q::after{color:var(--red)}
+.gateform{margin-top:clamp(28px,4vw,40px);border-top:1px solid var(--line);padding-top:22px}
+.gateform label{display:block;font:15px/1.3 var(--ty);color:var(--hi);margin-bottom:10px}
+.inrow{display:flex;gap:10px;flex-wrap:wrap}
+#agent{flex:1 1 240px;min-height:54px;background:#ffffff0d;border:1.5px solid #4a4843;border-radius:3px;color:var(--hi);font:20px/1.2 var(--ty);padding:0 16px}
+#agent::placeholder{color:#77726a}
+#agent:focus{border-color:var(--hi);outline:none}
+.inrow .btn{flex:0 0 auto}
+.hint{margin:10px 0 0;font-size:14px;color:var(--dim);min-height:1.4em}
+.hint.err{color:var(--red)}
+.granted{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:#0e0e0de6;text-align:center;padding:24px}
+.granted .stamp{font-size:clamp(44px,10vw,96px);border-width:6px;animation:slam .45s cubic-bezier(.2,1.4,.4,1) both}
+.granted p{font:clamp(18px,3vw,24px)/1.4 var(--ty);margin:30px 0 0;opacity:0;animation:fade .4s .45s both}
+@keyframes slam{0%{transform:rotate(-9deg) scale(2.6);opacity:0}100%{transform:rotate(-9deg) scale(1);opacity:1}}
+@keyframes fade{to{opacity:1}}
+
+/* brief */
+.sheet{position:relative;background:var(--paper);color:var(--ink);border-radius:3px;padding:clamp(24px,5vw,48px);box-shadow:0 40px 70px -30px #000,0 12px 24px -12px #000c;max-width:760px;margin:0 auto}
+.sheethead{display:flex;justify-content:space-between;gap:12px;font:13px/1.2 var(--ty);color:var(--mute);border-bottom:1px solid #cfc8b8;padding-bottom:12px;margin-bottom:22px}
+.sheet h2{font:900 clamp(34px,6.4vw,54px)/.98 var(--st);text-transform:uppercase;margin:0;text-wrap:balance}
+.codename{margin:10px 0 0;font:15px/1.4 var(--ty);color:var(--mute)}
+.codename b{color:var(--stamp);font-weight:400}
+.steps{list-style:none;margin:28px 0 30px;padding:0;border-top:2px solid var(--ink)}
+.steps li{display:grid;grid-template-columns:92px minmax(0,1fr);gap:16px;padding:14px 0;border-bottom:1px solid #d3ccbc}
+.mk{font:900 26px/1.05 var(--st);color:var(--stamp);text-transform:uppercase;white-space:nowrap}
+.mk.k{color:var(--ink)}
+.steps b{display:block;font:900 21px/1.05 var(--st);text-transform:uppercase;margin-bottom:3px}
+.steps span{font-size:16.5px;color:#34312b}
+.sheet .wide{width:100%}
+.sheet .stamp{position:absolute;top:clamp(16px,4vw,34px);right:clamp(16px,4vw,40px);font-size:22px;border-width:3px;color:var(--stamp);border-color:var(--stamp);transform:rotate(8deg);mix-blend-mode:multiply;padding:6px 10px 2px}
+
+/* file */
+.mark{all:unset;cursor:pointer;display:block;font:900 clamp(48px,10.5vw,112px)/.86 var(--st);text-transform:uppercase;color:var(--hi)}
+.mark .dash{color:var(--red)}
+.sub{margin:14px 0 0;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;color:var(--dim)}
+.badge{font:900 18px/1 var(--st);color:var(--desk);background:var(--hi);padding:5px 9px 4px;border-radius:2px}
+.sub b{color:var(--hi);font-weight:600}
+.who{margin:10px 0 0;font-size:15px;color:var(--dim)}
+.who strong{color:var(--hi);font-weight:600}
+.card{position:relative;background:var(--paper);color:var(--ink);border-radius:3px;padding:clamp(22px,4vw,38px);box-shadow:0 40px 70px -30px #000,0 12px 24px -12px #000c;margin-top:clamp(24px,4vw,34px)}
+.cardhead{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--mute);border-bottom:1px solid #cfc8b8;padding:0 170px 10px 0;margin-bottom:18px}
+.card .cstamp{all:unset;cursor:pointer;position:absolute;right:clamp(14px,3vw,28px);top:clamp(12px,2.5vw,20px);transform:rotate(-9deg);border:3px double var(--stamp);color:var(--stamp);font:900 22px/1 var(--st);text-transform:uppercase;padding:6px 12px 3px;mix-blend-mode:multiply}
+.cstamp.thunk{animation:thunk .35s ease-out}
+@keyframes thunk{0%{transform:rotate(-9deg) scale(1.6);opacity:0}100%{transform:rotate(-9deg) scale(1)}}
+.card h1{font:900 clamp(34px,6vw,50px)/1.02 var(--st);text-transform:uppercase;margin:0 0 6px}
+.card .lede{margin:0 0 20px;color:#3b3831;max-width:60ch}
+.card label{display:block;font-weight:600;font-size:14px;color:var(--mute);margin-bottom:4px}
+.field{display:flex;gap:10px;flex-wrap:wrap}
+#topic{flex:1 1 260px;font:21px/1.3 var(--ty);color:var(--ink);background:transparent;border:0;border-bottom:2px dashed var(--ink);padding:12px 2px;min-height:52px;border-radius:0}
+#topic::placeholder{color:#9a9384}
+#topic:focus{outline:none;border-bottom-style:solid}
+.card .ghost{color:var(--ink)}
+.card .ghost:hover{background:#0000000d}
+.metaline{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--mute);margin:8px 0 18px}
+.card .btn{width:100%}
+.sec{margin-top:clamp(40px,6vw,60px)}
+.sechead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:16px}
+.sec h2{font:900 clamp(30px,5vw,42px)/1.05 var(--st);text-transform:uppercase;margin:0}
+.tally{color:var(--dim);font-size:15px}
+.state{color:var(--dim);font:17px/1.5 var(--ty);margin:0;padding:18px;border:1px dashed var(--line);border-radius:3px;text-align:center}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.file{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center;background:var(--paper2);color:var(--ink);border-radius:3px;padding:14px 16px;box-shadow:0 14px 24px -16px #000;transform:rotate(var(--r,0deg))}
+.file.new{animation:slide .45s ease-out both}
+.file:nth-child(odd){--r:-.3deg}.file:nth-child(3n){--r:.4deg}
+.file.mine{background:var(--paper);outline:2px solid var(--red);outline-offset:-2px}
+@keyframes slide{from{transform:translateY(18px) rotate(var(--r,0deg));opacity:0}}
+.tab{font:900 22px/1 var(--st);color:var(--stamp);border-right:1px solid #c9c2b2;padding-right:14px}
+.t{margin:0;font:19px/1.35 var(--ty);overflow-wrap:anywhere}
+.by{margin:4px 0 0;font-size:14px;color:var(--mute)}
+.by strong{color:var(--ink);font-weight:600}
+.redacted .t span{background:var(--ink);color:transparent;border-radius:1px}
+.redacted .file:hover .t span,.redacted .file:focus-within .t span{background:transparent;color:var(--ink)}
+.kit{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px}
+.tool{background:var(--desk2);border:1px solid var(--line);border-radius:4px;padding:22px}
+.tool h3{font:900 28px/1 var(--st);text-transform:uppercase;margin:0 0 6px}
+.tool p{margin:0;color:var(--dim);font-size:15px}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.tool .btn{min-height:46px;font-size:20px;padding:0 18px}
+.tool .ghost{color:var(--hi)}.tool .ghost:hover{background:#ffffff10}
+.diebox{display:flex;align-items:center;gap:18px;margin-top:16px;flex-wrap:wrap}
+.die{width:88px;height:88px;flex:none;background:var(--paper);border-radius:16px;padding:13px;display:grid;grid-template-columns:repeat(3,1fr);place-items:center;box-shadow:inset 0 -6px 0 #cfc8b8,0 12px 22px -10px #000}
+.die i{width:14px;height:14px;border-radius:50%}
+.die i.p{background:var(--ink)}
+.die[data-n="1"] i.p{background:var(--stamp);width:20px;height:20px}
+.die.spin{animation:wob .12s linear infinite}
+@keyframes wob{50%{transform:rotate(12deg) scale(.96)}}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:3px;font:900 18px/1 var(--st);color:var(--dim)}
+.chip.done{background:var(--red);border-color:var(--red);color:#140c0a;text-decoration:line-through}
+.msg{min-height:1.5em;margin-top:12px!important;color:var(--hi)!important;font:16px/1.45 var(--ty)!important}
+.clock{font:900 clamp(72px,13vw,116px)/.9 var(--st);margin:14px 0 4px;font-variant-numeric:tabular-nums}
+.clock.low{color:var(--red)}
+.alarm .clock{animation:blink .5s steps(2) 6}
+@keyframes blink{50%{opacity:.15}}
+.presets{display:flex;gap:6px;flex-wrap:wrap}
+.presets button{background:none;border:1px solid var(--line);color:var(--dim);border-radius:3px;min-height:44px;padding:0 12px;font-size:15px}
+.presets button.sel{border-color:var(--hi);color:var(--hi)}
+.foot{margin-top:auto}
+.fine{text-align:center;color:#6f6a60;font-size:13px;padding:14px 16px calc(14px + env(safe-area-inset-bottom));margin:0}
+
+/* overlay, paws, toast */
+.ovl{position:fixed;inset:0;z-index:60;background:#0b0b0af2;display:grid;place-items:center;padding:24px;opacity:0;transition:opacity .25s}
+.ovl.on{opacity:1}
+.ovlin{max-width:760px;text-align:center}
+.ovl .stamp{font-size:clamp(46px,9vw,84px);border-width:5px}
+.ovl.on .stamp{animation:slam .45s cubic-bezier(.2,1.4,.4,1) both}
+.odds{font:900 clamp(34px,6.4vw,62px)/1.02 var(--st);text-transform:uppercase;margin:30px 0 14px;text-wrap:balance}
+.woofs{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;font:clamp(24px,4vw,34px)/1 var(--ty);color:var(--red);margin:0 0 30px}
+.woofs span{opacity:0}
+.ovl.on .woofs span{animation:pop .3s ease-out both}
+.ovl.on .woofs span:nth-child(1){animation-delay:.7s}.ovl.on .woofs span:nth-child(2){animation-delay:1.05s}.ovl.on .woofs span:nth-child(3){animation-delay:1.4s}
+@keyframes pop{from{opacity:0;transform:scale(.3) rotate(-12deg)}to{opacity:1;transform:none}}
+#paws{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+#paws svg{position:absolute;top:-60px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(calc(100vh + 120px)) rotate(var(--rot))}}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;transform:translate(-50%,calc(100% + 40px));visibility:hidden;background:var(--paper);color:var(--ink);padding:12px 18px;border-radius:3px;font:16px/1.35 var(--ty);box-shadow:0 14px 30px -10px #000;transition:transform .25s,visibility .25s;max-width:min(92vw,520px);text-align:center}
+.toast.on{transform:translate(-50%,0);visibility:visible}
+@media(max-width:600px){.cardhead{padding-right:0;margin-top:40px}.steps li{grid-template-columns:72px minmax(0,1fr);gap:12px}.mk{font-size:21px}.meta span+span{display:none}.numrow .stamp{right:0;bottom:8%}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.woofs span,.granted p{opacity:1}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="paw" viewBox="0 0 64 64"><ellipse cx="32" cy="42" rx="15" ry="13"/><ellipse cx="13" cy="26" rx="6.5" ry="8.5" transform="rotate(-18 13 26)"/><ellipse cx="25" cy="14" rx="6.5" ry="9"/><ellipse cx="39" cy="14" rx="6.5" ry="9"/><ellipse cx="51" cy="26" rx="6.5" ry="8.5" transform="rotate(18 51 26)"/></symbol></svg>
+<div class="banner" id="banner">Confidential — For VANFAM executive eyes only</div>
+
+<!-- 1. GATE -->
+<section class="screen" id="gate">
+  <div class="wrap">
+    <p class="meta"><span>FILE VF-001</span><span>VANFAM EXECUTIVE OFFICE</span><span>CLEARANCE: HOUSEMATES</span></p>
+    <h1 class="hg">House Games</h1>
+    <div class="numrow"><span class="num" aria-label="001">001</span><span class="stamp" aria-hidden="true">Confidential</span></div>
+    <p class="op">Operation codename<b><q>The Masterclass Speed Run</q></b></p>
+    <form class="gateform" id="gateForm" autocomplete="off" novalidate>
+      <label for="agent">Identify yourself, agent.</label>
+      <div class="inrow">
+        <input id="agent" name="agent" maxlength="40" placeholder="Your name" autocapitalize="words" enterkeyhint="go">
+        <button class="btn red" type="submit">I'm in</button>
+      </div>
+      <p class="hint" id="gatehint">Eyes only. The brief is next.</p>
+    </form>
+  </div>
+</section>
+
+<!-- 2. BRIEF -->
+<section class="screen" id="brief" hidden>
+  <div class="wrap">
+    <article class="sheet">
+      <span class="stamp" aria-hidden="true">Eyes only</span>
+      <div class="sheethead"><span>Confidential activity brief</span></div>
+      <h2>Agent <span id="bname"></span>, here's how tonight works.</h2>
+      <p class="codename">Your codename: <b id="bcode"></b></p>
+      <ol class="steps">
+        <li><span class="mk k">Now</span><div><b>File your topic</b><span>Anything goes. Astrology to movies to business to history to philosophy to fashion to wildlife and everything in between. Be as creative as possible, or pick something you want to learn about.</span></div></li>
+        <li><span class="mk">45:00</span><div><b>Prep</b><span>The 45-minute prep timer begins.</span></div></li>
+        <li><span class="mk">00:00</span><div><b>Lockdown</b><span>When the timer goes, no more updates to presentations. Laptops away, grab the grading page.</span></div></li>
+        <li><span class="mk">1–6</span><div><b>Roll call</b><span>Everyone calls a number 1–6. The dice decides who presents first.</span></div></li>
+        <li><span class="mk">5 + 2</span><div><b>Present</b><span>Up to 5 minutes to present, then up to 2 minutes of questions.</span></div></li>
+        <li><span class="mk">1–10</span><div><b>Judge</b><span>Every judge scores it 1–10 with brief feedback.</span></div></li>
+        <li><span class="mk">Again</span><div><b>Next agent up</b><span>Roll again for the next presenter. Repeat number = re-roll.</span></div></li>
+      </ol>
+      <button class="btn ink wide" id="gotit" type="button">I got it</button>
+    </article>
+  </div>
+</section>
+
+<!-- 3. FILE A TOPIC -->
+<section class="screen" id="file" hidden>
+  <div class="wrap">
+    <header>
+      <button class="mark" id="mark" type="button">VANFAM <span class="dash">—</span> House Games</button>
+      <p class="sub"><span class="badge">001</span><b>The Masterclass Speed Run</b></p>
+      <p class="who">Filing as <strong id="whoname"></strong> · <button class="link" id="switch" type="button">not you?</button> · <button class="link" id="reread" type="button">re-read the brief</button></p>
+    </header>
+
+    <section class="card" aria-labelledby="h-intake">
+      <button class="cstamp" id="stamp" type="button" title="Classified">Confidential</button>
+      <div class="cardhead"><span>Form VF-001 · Topic intake</span><span id="fileno">Next file no. 001</span></div>
+      <h1 id="h-intake">File your topic</h1>
+      <p class="lede">What are you teaching the room tonight? Be creative, or pick something you want to learn about.</p>
+      <form id="f" autocomplete="off" novalidate>
+        <label for="topic">Your topic</label>
+        <div class="field">
+          <input id="topic" maxlength="160" placeholder="e.g. How strong really are bears?" enterkeyhint="send">
+          <button type="button" id="inspo" class="ghost">Roll for inspo</button>
+        </div>
+        <div class="metaline"><span id="quip">Short and mysterious is allowed.</span><span id="count">0/160</span></div>
+        <button id="go" class="btn ink" type="submit">Submit to the vault</button>
+      </form>
+    </section>
+
+    <section class="sec" aria-labelledby="h-filed">
+      <div class="sechead"><h2 id="h-filed">Filed topics</h2><span class="tally" id="tally">Loading…</span></div>
+      <p class="state" id="state">Pulling files from the vault…</p>
+      <ol class="list" id="list"></ol>
+    </section>
+
+    <section class="sec" aria-labelledby="h-kit">
+      <div class="sechead"><h2 id="h-kit">Field kit</h2><span class="tally">For the night itself</span></div>
+      <div class="kit">
+        <div class="tool">
+          <h3>Roll call</h3>
+          <p>Everyone calls a number 1–6. Numbers that already went re-roll on their own.</p>
+          <div class="diebox"><div class="die" id="die" role="img" aria-label="Die showing 6"></div><div class="chips" id="chips"></div></div>
+          <p class="msg" id="dmsg" aria-live="polite"></p>
+          <div class="row"><button class="btn light" id="roll" type="button">Roll the dice</button><button class="ghost" id="dreset" type="button">Reset</button></div>
+        </div>
+        <div class="tool">
+          <h3>Game clock</h3>
+          <div class="presets" id="presets"><button type="button" data-m="45" class="sel">45 prep</button><button type="button" data-m="5">5 present</button><button type="button" data-m="2">2 questions</button></div>
+          <div class="clock" id="clock">45:00</div>
+          <p class="msg" id="tmsg" aria-live="polite"></p>
+          <div class="row"><button class="btn light" id="tgo" type="button">Start</button><button class="ghost" id="treset" type="button">Reset</button></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="banner">Confidential — For VANFAM executive eyes only</div>
+  <p class="fine">This page will not self-destruct. Your ego might. · ↑↑↓↓←→←→BA</p>
+</footer>
+
+<div class="granted" id="granted" hidden><div><span class="stamp">Access granted</span><p id="grantedmsg"></p></div></div>
+<div class="ovl" id="ovl" hidden role="dialog" aria-modal="true" aria-labelledby="odds">
+  <div class="ovlin">
+    <span class="stamp">Filed</span>
+    <p class="odds" id="odds">May the odds be ever in your favour big dawwwwwwg</p>
+    <p class="woofs"><span>woof</span><span>woof</span><span>woof</span></p>
+    <button class="btn light" id="ovlx" type="button">Dismissed</button>
+  </div>
+</div>
+<div id="paws" aria-hidden="true"></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+{
+const API='https://rrsamqdzhtocvxwqrrrj.supabase.co/rest/v1/house_games_topics';
+const KEY='sb_publishable_XhYABscA5t0PQ-1Nd2V5BA_6jUGWpLg';
+const GAME='hg-001';
+const HDR={apikey:KEY,'Content-Type':'application/json'};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const store={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+
+const IDEAS=['The Salem witch trials','How strong really are bears?','The physiology of flow state','The Dancing Plague of 1518','The Great Emu War','Why octopuses might be smarter than us','The Great Molasses Flood of 1919','How the pyramids were actually built','Can a human outrun a horse?','The mystery of D.B. Cooper','What happens to your body in space','The economics of a Costco hot dog','Tulip mania: the first market bubble','How magicians fool your brain','The 1911 Mona Lisa heist','How memory champions remember 1,000 digits','Why sharks are older than trees','The psychology of cults','How F1 pit crews change tires in 2 seconds','The real science of cold plunges','Why we dream','The 1904 Olympic marathon: the strangest race ever','How wolves changed Yellowstone','The Voynich manuscript nobody can read','How dogs read human faces','Spartans: myth vs reality','The 13 days of the Cuban Missile Crisis','How caffeine actually works','Deep-sea creatures that look fake','Monopoly was invented to teach a lesson','The Bermuda Triangle, debunked','How tattoos stay in your skin','The Kardashev scale: ranking civilizations','Why cats purr','How a Michelin star is won','The rise and fall of Blockbuster','Stoicism for people who hate mornings','Napoleon wasn’t short: a defence','Why horror movies work on your brain','How Vikings navigated without maps','The greatest con artists in history','How sumo wrestlers train and eat','The placebo effect','Roman fast food and street snacks','How the Titanic really sank','Why astrology still has a grip on us','How sneaker resale became a stock market','The secret language of perfume','How crows hold grudges','The chemistry of a perfect steak'];
+const ADJ=['Velvet','Midnight','Silent','Copper','Feral','Golden','Turbo','Crimson','Static','Lucky','Polar','Neon','Rogue','Hollow','Iron','Sneaky'];
+const ANI=['Moose','Otter','Falcon','Raccoon','Badger','Orca','Goose','Lynx','Beaver','Heron','Wolf','Marmot','Puffin','Coyote','Walrus','Doberman'];
+const codename=s=>{let h=2166136261;for(const c of String(s).toLowerCase()){h^=c.charCodeAt(0);h=Math.imul(h,16777619)>>>0}h=(h^(h>>>13))>>>0;h=Math.imul(h,0x5bd1e995)>>>0;h=(h^(h>>>15))>>>0;return 'Agent '+ADJ[h%ADJ.length]+' '+ANI[(h>>>8)%ANI.length]};
+
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2800)}
+
+/* ---- screens ---- */
+let me=(store.get('vhg_name')||'').trim();
+const SCREENS=['gate','brief','file'];
+function show(id,push){
+  if(id!=='gate'&&!me)id='gate';
+  for(const s of SCREENS){const el=$('#'+s);el.hidden=s!==id;if(s===id){el.classList.remove('enter');void el.offsetWidth;el.classList.add('enter')}}
+  if(push!==false){const h=id==='gate'?'':'#'+id;if(location.hash!==h)history.pushState(null,'',h||location.pathname)}
+  window.scrollTo(0,0);
+  if(id==='brief'){$('#bname').textContent=me;$('#bcode').textContent=codename(me)}
+  if(id==='file'){$('#whoname').textContent=me;startPolling()}else stopPolling();
+}
+addEventListener('popstate',()=>{const h=location.hash.slice(1);show(SCREENS.includes(h)?h:'gate',false)});
+
+/* gate */
+const agent=$('#agent');agent.value=me;
+$('#gateForm').addEventListener('submit',e=>{e.preventDefault();const n=agent.value.replace(/\s+/g,' ').trim();const hint=$('#gatehint');
+  if(!n){hint.textContent='Name first, agent. No name, no clearance.';hint.classList.add('err');agent.focus();return}
+  hint.classList.remove('err');hint.textContent='Clearance granted.';me=n.slice(0,40);store.set('vhg_name',me);
+  const g=$('#granted');$('#grantedmsg').textContent='Welcome, '+codename(me)+'.';g.hidden=false;
+  setTimeout(()=>{g.hidden=true;show('brief')},calm?300:1500)});
+$('#gotit').addEventListener('click',()=>{store.set('vhg_briefed','1');show('file');setTimeout(()=>topic.focus({preventScroll:true}),350)});
+$('#switch').addEventListener('click',()=>{show('gate');agent.select()});
+$('#reread').addEventListener('click',()=>show('brief'));
+
+/* ---- topic form ---- */
+const topic=$('#topic'),go=$('#go');
+let pi=1;setInterval(()=>{if(!topic.value&&document.activeElement!==topic)topic.placeholder='e.g. '+IDEAS[pi++%IDEAS.length]},3200);
+const QUIPS=[[0,'Short and mysterious is allowed.'],[1,'Go on…'],[22,"Now we're cooking."],[70,"That's a thesis, chief."],[130,'Five minutes, remember.']];
+function stampThunk(){const s=$('#stamp');s.classList.remove('thunk');void s.offsetWidth;s.classList.add('thunk')}
+function onType(){const n=topic.value.length;$('#count').textContent=n+'/160';let q=QUIPS[0][1];for(const [k,v] of QUIPS)if(n>=k)q=v;$('#quip').textContent=q;
+  const w=/woof/i.test(topic.value)?'Good boy':'Confidential';const s=$('#stamp');if(s.textContent!==w){s.textContent=w;stampThunk()}}
+topic.addEventListener('input',onType);
+let lastIdea=-1;
+$('#inspo').addEventListener('click',()=>{let i=0;const pick=()=>{let k;do{k=Math.floor(Math.random()*IDEAS.length)}while(k===lastIdea&&IDEAS.length>1);lastIdea=k;return IDEAS[k]};
+  const spin=setInterval(()=>{topic.value=pick();onType();if(++i>(calm?0:9)){clearInterval(spin)}},55)});
+
+/* ---- vault (Supabase) ---- */
+let rows=[],seen=new Set(),loaded=false,poll=null,failing=0,redacted=false;
+let mine=new Set((store.get('vhg_mine')||'').split(',').filter(Boolean));
+function fmtTime(ts){try{return new Date(ts).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}catch(e){return ''}}
+function render(){
+  const st=$('#state'),list=$('#list');
+  $('#tally').textContent=rows.length+(rows.length===1?' file':' files');
+  const nx=String(rows.length+1).padStart(3,'0');$('#fileno').textContent='Next file no. '+nx+(nx==='007'?' · licence to present':'');
+  st.hidden=rows.length>0;if(!rows.length&&loaded)st.textContent='No files yet. Be the first agent in.';
+  list.innerHTML=rows.map((r,i)=>{const isNew=loaded&&!seen.has(r.id);const own=mine.has(r.id);
+    return `<li class="file${own?' mine':''}${isNew?' new':''}" tabindex="-1"><span class="tab">#${String(i+1).padStart(3,'0')}</span><div><p class="t"><span>${esc(r.topic)}</span></p><p class="by"><strong>${esc(r.name)}</strong> · ${esc(codename(r.name))} · ${esc(fmtTime(r.created_at))}</p></div></li>`}).join('');
+  for(const r of rows)seen.add(r.id);
+}
+async function load(){
+  try{const res=await fetch(`${API}?select=id,name,topic,created_at&game=eq.${GAME}&order=created_at.asc`,{headers:HDR,cache:'no-store'});
+    if(!res.ok)throw new Error(res.status);const data=await res.json();
+    const sig=data.map(r=>r.id).join();const old=rows.map(r=>r.id).join();rows=data;
+    const first=!loaded;loaded=true;failing=0;if(first||sig!==old)render();
+  }catch(e){failing++;if(!loaded){$('#state').hidden=false;$('#state').textContent="Can't reach the vault right now. Check your connection; it'll retry."}}
+}
+function startPolling(){if(poll)return;load();poll=setInterval(()=>{if(!document.hidden)load()},5000)}
+function stopPolling(){clearInterval(poll);poll=null}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&poll)load()});
+
+let busy=false;
+$('#f').addEventListener('submit',async e=>{e.preventDefault();const text=topic.value.replace(/\s+/g,' ').trim();
+  if(!text){topic.focus();toast('A blank file? Bold. Write something.');return}
+  if(busy)return;busy=true;go.disabled=true;go.textContent='Filing…';
+  try{const res=await fetch(API,{method:'POST',headers:{...HDR,Prefer:'return=representation'},body:JSON.stringify({game:GAME,name:me.slice(0,40),topic:text.slice(0,160)})});
+    if(!res.ok)throw new Error(res.status);const [row]=await res.json();
+    if(row&&row.id){mine.add(row.id);store.set('vhg_mine',[...mine].join(','));if(!rows.some(r=>r.id===row.id)){rows.push(row);render()}}
+    topic.value='';onType();celebrate();load();
+  }catch(err){toast("Didn't go through. Check your connection and try again.")}
+  finally{busy=false;go.disabled=false;go.textContent='Submit to the vault'}});
+
+/* ---- celebration ---- */
+let ot;
+function celebrate(){const o=$('#ovl');o.hidden=false;requestAnimationFrame(()=>requestAnimationFrame(()=>o.classList.add('on')));pawRain(28);clearTimeout(ot);ot=setTimeout(closeOvl,7000);$('#ovlx').focus()}
+function closeOvl(){const o=$('#ovl');clearTimeout(ot);o.classList.remove('on');setTimeout(()=>{o.hidden=true},260)}
+$('#ovlx').addEventListener('click',closeOvl);$('#ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeOvl()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#ovl').hidden)closeOvl()});
+function pawRain(n){if(calm)return;const box=$('#paws');for(let i=0;i<n;i++){const s=document.createElementNS('http://www.w3.org/2000/svg','svg');const z=24+Math.random()*30;s.setAttribute('viewBox','0 0 64 64');s.setAttribute('width',z);s.setAttribute('height',z);s.innerHTML='<use href="#paw"/>';s.style.left=(Math.random()*100)+'vw';s.style.fill=Math.random()<.6?'#ff3b22':'#f2eee4';s.style.setProperty('--rot',(Math.random()*540-270)+'deg');s.style.animationDuration=(2.2+Math.random()*2.2)+'s';s.style.animationDelay=(Math.random()*1.2)+'s';box.appendChild(s);setTimeout(()=>s.remove(),5200)}}
+
+/* ---- hidden stuff ---- */
+let clicks=0,ct;
+$('#mark').addEventListener('click',()=>{clicks++;clearTimeout(ct);ct=setTimeout(()=>{clicks=0},1200);if(clicks>=5){clicks=0;document.querySelectorAll('.banner').forEach(b=>b.textContent='Top secret — Executive clearance granted');toast('Executive clearance granted. Welcome back, boss.');pawRain(40)}});
+function toggleRedact(){redacted=!redacted;document.body.classList.toggle('redacted',redacted);stampThunk();toast(redacted?'Redaction protocol engaged. Tap or hover a file to peek.':'Declassified.')}
+$('#stamp').addEventListener('click',toggleRedact);
+const K=['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];let kp=0;
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT')return;const k=e.key.length===1?e.key.toLowerCase():e.key;kp=k===K[kp]?kp+1:(k===K[0]?1:0);if(kp===K.length){kp=0;toggleRedact();pawRain(20)}});
+
+/* ---- dice ---- */
+const PIPS={1:[5],2:[1,9],3:[1,5,9],4:[1,3,7,9],5:[1,3,5,7,9],6:[1,3,4,6,7,9]};
+const die=$('#die');let done=new Set(),rolling=false;
+function face(n){die.innerHTML=Array.from({length:9},(_,i)=>`<i${PIPS[n].includes(i+1)?' class="p"':''}></i>`).join('');die.dataset.n=n;die.setAttribute('aria-label','Die showing '+n)}
+function chips(){$('#chips').innerHTML=[1,2,3,4,5,6].map(n=>`<span class="chip${done.has(n)?' done':''}">${n}</span>`).join('')}
+const dmsg=m=>{$('#dmsg').textContent=m};
+face(6);chips();
+$('#roll').addEventListener('click',()=>{if(rolling)return;if(done.size>=6){dmsg("Everyone's presented. Tally the scores.");return}rolling=true;
+  const once=()=>{let i=0;die.classList.add('spin');const iv=setInterval(()=>{face(1+Math.floor(Math.random()*6));if(++i>(calm?1:12)){clearInterval(iv);die.classList.remove('spin');const n=1+Math.floor(Math.random()*6);face(n);
+    if(done.has(n)){dmsg(`Rolled a ${n}. Already went. Re-rolling…`);setTimeout(once,750)}
+    else{done.add(n);chips();dmsg(done.size===6?`Number ${n}, you close it out.`:`Number ${n}, you're up. Five minutes, go.`);rolling=false}}},60)};
+  once()});
+$('#dreset').addEventListener('click',()=>{if(rolling)return;done=new Set();chips();face(6);dmsg('Fresh round. Call your numbers.')});
+
+/* ---- clock ---- */
+let total=2700,left=2700,tick=null,endAt=0,actx=null;
+const clock=$('#clock');
+function showClock(){const m=Math.floor(left/60),s=left%60;clock.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');clock.classList.toggle('low',left<=60)}
+const tmsg=m=>{$('#tmsg').textContent=m};
+function pause(){clearInterval(tick);tick=null;$('#tgo').textContent=left<total&&left>0?'Resume':'Start'}
+function setMins(m){pause();total=m*60;left=total;showClock();tmsg('');$('#tgo').textContent='Start';document.querySelectorAll('#presets button').forEach(b=>b.classList.toggle('sel',+b.dataset.m===m))}
+$('#presets').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setMins(+b.dataset.m)});
+$('#treset').addEventListener('click',()=>setMins(total/60));
+function buzz(){try{if(!actx)return;const t0=actx.currentTime;for(let i=0;i<3;i++){const o=actx.createOscillator(),g=actx.createGain();o.type='square';o.frequency.value=660;g.gain.setValueAtTime(.0001,t0+i*.32);g.gain.exponentialRampToValueAtTime(.18,t0+i*.32+.02);g.gain.exponentialRampToValueAtTime(.0001,t0+i*.32+.22);o.connect(g).connect(actx.destination);o.start(t0+i*.32);o.stop(t0+i*.32+.24)}}catch(e){}}
+const DONE={2700:'Prep is over. No more edits. Laptops away, grab the grading page.',300:'Time. Question period: two minutes.',120:'Questions closed. Judges, score it 1–10 with feedback.'};
+$('#tgo').addEventListener('click',()=>{if(tick){pause();return}if(left<=0)left=total;
+  try{actx=actx||new (window.AudioContext||window.webkitAudioContext)();actx.resume()}catch(e){actx=null}
+  endAt=Date.now()+left*1000;$('#tgo').textContent='Pause';tmsg(total===2700?'Prep is live. Make it count.':'');
+  tick=setInterval(()=>{left=Math.max(0,Math.round((endAt-Date.now())/1000));showClock();if(left===0){clearInterval(tick);tick=null;$('#tgo').textContent='Start';buzz();tmsg(DONE[total]||'Time.');document.body.classList.add('alarm');setTimeout(()=>document.body.classList.remove('alarm'),3200)}},250)});
+
+/* ---- start: always open on the confidential page ---- */
+history.replaceState(null,'',location.pathname);
+show('gate',false);
+}
+</script>
+</body>
+</html>
